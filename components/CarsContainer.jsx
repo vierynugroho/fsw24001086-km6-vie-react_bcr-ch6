@@ -31,7 +31,7 @@ export const CarsContainer = ({ data }) => {
 							>
 								{`${car.rentPerDay} / hari`}
 							</h4>
-							<p className='card-text'>Description Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+							<p className='card-text'>{`${car.description}`}</p>
 							<ul className='list-group car-list'>
 								<li className='list-group-item'>
 									<i>
