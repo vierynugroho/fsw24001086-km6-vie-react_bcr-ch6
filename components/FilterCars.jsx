@@ -22,14 +22,14 @@ export const FilterCars = () => {
 				},
 			});
 		} catch (error) {
-			toast.success('failed get cars data', {
+			toast.error('failed to get cars data', {
 				style: {
-					backgroundColor: 'green',
+					backgroundColor: 'red',
 					color: 'white',
 				},
 				iconTheme: {
 					primary: 'white',
-					secondary: 'green',
+					secondary: 'black',
 				},
 			});
 		}

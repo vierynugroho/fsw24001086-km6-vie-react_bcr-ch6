@@ -1,14 +1,15 @@
 import React from 'react';
 import { FormatRupiah } from '@arismun/format-rupiah';
+import { Link } from 'react-router-dom';
 
 export const CarsContainer = ({ data }) => {
 	return (
 		<div
 			id='cars-container'
-			className='row  p-3 shadow-lg container position-relative w-75 mx-auto d-flex justify-content-evenly gap-2'
+			className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 p-3 shadow-lg container position-relative w-75 mx-auto'
 		>
 			{data.map((car) => (
-				<div className='col-12 col-lg-3 col-md-6 mt-3'>
+				<div key={car.id}>
 					<div
 						className='card border-0 h-100'
 						id='card-car'
@@ -65,12 +66,12 @@ export const CarsContainer = ({ data }) => {
 							</ul>
 						</div>
 						<div className='card-footer border-0'>
-							<a
-								href='cars?id=${this.id}'
+							<Link
+								to={`/cars?id=${car.id}`}
 								className='d-block w-100 py-2 nav-link success-color text-white fw-bold text-center'
 							>
 								Pilih Mobil
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>
