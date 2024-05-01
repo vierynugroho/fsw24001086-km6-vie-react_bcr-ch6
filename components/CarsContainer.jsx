@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormatRupiah } from '@arismun/format-rupiah';
 
 export const CarsContainer = ({ data }) => {
 	return (
@@ -29,7 +30,8 @@ export const CarsContainer = ({ data }) => {
 								className='card-sub-title fw-bold'
 								id='car-rent'
 							>
-								{`${car.rentPerDay} / hari`}
+								<FormatRupiah value={car.rentPerDay} />
+								{` / hari`}
 							</h4>
 							<p className='card-text'>{`${car.description}`}</p>
 							<ul className='list-group car-list'>
