@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
 	return (
 		<nav className='navbar navbar-expand-lg bg-transparent py-3 mx-4'>
-			<a
+			<Link
 				className='navbar-brand rounded-1 primary-color'
-				href='#'
-			></a>
+				to={'/'}
+			></Link>
 			{/* [START] - action button in mobile view */}
 			<button
 				className='navbar-toggler border-0'
@@ -31,9 +32,9 @@ export const Navbar = () => {
 				aria-labelledby='navbar__mobileLabel'
 			>
 				<div className='offcanvas-header'>
-					<a
-						href='#'
+					<Link
 						className='nav-link'
+						to={'/'}
 					>
 						<h5
 							className='offcanvas-title fw-bold'
@@ -41,7 +42,7 @@ export const Navbar = () => {
 						>
 							BCR
 						</h5>
-					</a>
+					</Link>
 					<button
 						type='button'
 						className='btn-close'
@@ -86,7 +87,7 @@ export const Navbar = () => {
 						<li className='nav-item'>
 							<a
 								className='nav-link py-2 px-2 rounded-1 success-color text-white fw-bold w-50 text-center'
-								href='#'
+								href='/register'
 							>
 								Register
 							</a>

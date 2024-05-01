@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
 	return (
@@ -123,10 +124,11 @@ export const Footer = () => {
 					</div>
 					<div className='col-10 col-md-3 mb-3'>
 						<p>Copyright Binar 2022</p>
-						<a
+
+						<Link
 							className='navbar-brand rounded-1 primary-color'
-							href='#'
-						></a>
+							to={'/'}
+						></Link>
 					</div>
 				</div>
 			</div>

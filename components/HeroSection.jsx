@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const HeroSection = () => {
 	return (
@@ -21,12 +22,12 @@ export const HeroSection = () => {
 									id='hero__body'
 								>
 									<p>Selamat datang di Binar Car Rental. Kami menyediakan mobil kualitas terbaik dengan harga terjangkau. Selalu siap melayani kebutuhanmu untuk sewa mobil selama 24 jam.</p>
-									<a
-										href='#'
+									<Link
 										className='nav-link'
+										to={'/cars'}
 									>
 										<button className='py-2 px-3 rounded-1 success-color text-white fw-bold border-0'>Mulai Sewa Mobil</button>
-									</a>
+									</Link>
 								</div>
 							</div>
 						</div>

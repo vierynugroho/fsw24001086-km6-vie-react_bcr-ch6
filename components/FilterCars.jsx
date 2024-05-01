@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { CarsContainer } from './CarsContainer';
+import toast from 'react-hot-toast';
 
 export const FilterCars = () => {
+	const [data, setdata] = useState([]);
+
+	const fetchCars = async () => {
+		try {
+			const response = await axios.get('https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json');
+			const cars = response.data;
+			setdata(cars);
+			toast.success('all car data retrieved successfully', {
+				style: {
+					backgroundColor: 'green',
+					color: 'white',
+				},
+				iconTheme: {
+					primary: 'white',
+					secondary: 'green',
+				},
+			});
+		} catch (error) {
+			toast.success('failed get cars data', {
+				style: {
+					backgroundColor: 'green',
+					color: 'white',
+				},
+				iconTheme: {
+					primary: 'white',
+					secondary: 'green',
+				},
+			});
+		}
+	};
+
+	useEffect(() => {
+		fetchCars();
+	}, []);
 	return (
 		<>
 			<div
@@ -131,7 +167,7 @@ export const FilterCars = () => {
 					</div>
 				</div>
 			</div>
-			<CarsContainer />
+			<CarsContainer data={data} />
 		</>
 	);
 };
