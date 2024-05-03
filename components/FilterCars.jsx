@@ -1,43 +1,114 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { CarsContainer } from './CarsContainer';
+import { CarsContext } from '@/src/contexts/CarsContext';
 import toast from 'react-hot-toast';
 
 export const FilterCars = () => {
-	const [data, setdata] = useState([]);
+	const { data } = useContext(CarsContext);
+	const [cars, setCars] = useState([]);
+	const [showContainer, setShowContainer] = useState(false);
 
-	const fetchCars = async () => {
-		try {
-			const response = await axios.get('https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json');
-			const cars = response.data;
-			setdata(cars);
-			toast.success('all car data retrieved successfully', {
-				style: {
-					backgroundColor: 'green',
-					color: 'white',
-				},
-				iconTheme: {
-					primary: 'white',
-					secondary: 'green',
-				},
-			});
-		} catch (error) {
-			toast.error('failed to get cars data', {
+	const [driverType, setDriverType] = useState('');
+	const [date, setDate] = useState('');
+	const [pickUpTime, setPickUpTime] = useState('');
+	let [totalPassenger, setTotalPassenger] = useState('');
+
+	//! Data Filter
+	const carsFilter = async () => {
+		setShowContainer(true);
+		let filter_dateTime = new Date(`${date} ${pickUpTime}`);
+		let formattedDateTime;
+
+		//! VALIDATION INPUT
+		//TODO: totalPassenger is empty
+		if (totalPassenger == '') totalPassenger = 0;
+
+		//TODO: all input is empty
+		if (date == '' && pickUpTime == '' && totalPassenger == '0') {
+			console.log('empty input!');
+			setCars(data);
+			return;
+		}
+
+		// //TODO:driverType is empty
+		if (driverType == '' || driverType == null) {
+			toast.error('Driver Type is Empty!', {
 				style: {
 					backgroundColor: 'red',
 					color: 'white',
 				},
 				iconTheme: {
 					primary: 'white',
-					secondary: 'black',
+					secondary: 'red',
 				},
 			});
+			return;
 		}
+
+		//TODO: date or pick up time is empty
+		if (date != '' && pickUpTime == '') {
+			toast.error('Please Enter Car Pickup Time!', {
+				style: {
+					backgroundColor: 'red',
+					color: 'white',
+				},
+				iconTheme: {
+					primary: 'white',
+					secondary: 'red',
+				},
+			});
+			return;
+		} else if (pickUpTime != '' && date == '') {
+			toast.error('Please Enter Car Pickup Date!', {
+				style: {
+					backgroundColor: 'red',
+					color: 'white',
+				},
+				iconTheme: {
+					primary: 'white',
+					secondary: 'red',
+				},
+			});
+			return;
+		}
+
+		//! VALIDATION FILTER
+		let filteredCars;
+
+		//TODO: if passenger empty
+		if (totalPassenger == '' || totalPassenger == null) {
+			filter_dateTime = new Date(filter_dateTime.getTime());
+			formattedDateTime = filter_dateTime.toISOString();
+			filteredCars = (car) => car.availableAt <= formattedDateTime && car.available === true;
+		}
+		//TODO: if date or pick up time empty
+		else if (date == '' || date == null || pickUpTime == '' || pickUpTime == null) {
+			filteredCars = (car) => car.capacity >= totalPassenger && car.available === true;
+		}
+		//TODO: if all inputs are filled
+		else {
+			filter_dateTime = new Date(filter_dateTime.getTime());
+			formattedDateTime = filter_dateTime.toISOString();
+			filteredCars = (car) => car.capacity >= totalPassenger && car.available === true && car.availableAt <= formattedDateTime;
+		}
+
+		//! Action Filter
+
+		const carsFiltered = data.filter(filteredCars);
+		// console.log(cars);
+		setCars(carsFiltered);
+		toast.success('cars data filtered successfully', {
+			style: {
+				backgroundColor: 'green',
+				color: 'white',
+			},
+			iconTheme: {
+				primary: 'white',
+				secondary: 'green',
+			},
+		});
 	};
 
-	useEffect(() => {
-		fetchCars();
-	}, []);
 	return (
 		<>
 			<div
@@ -63,6 +134,8 @@ export const FilterCars = () => {
 										<select
 											className='form-select'
 											id='driverType'
+											value={driverType}
+											onChange={(e) => setDriverType(e.target.value)}
 										>
 											<option
 												hidden
@@ -87,6 +160,8 @@ export const FilterCars = () => {
 											type='date'
 											className='form-control'
 											id='date'
+											value={date}
+											onChange={(e) => setDate(e.target.value)}
 										/>
 									</div>
 								</div>
@@ -102,6 +177,8 @@ export const FilterCars = () => {
 											className='form-select'
 											aria-label='Default select example'
 											id='pickUpTime'
+											value={pickUpTime}
+											onChange={(e) => setPickUpTime(e.target.value)}
 										>
 											<option
 												hidden
@@ -134,6 +211,8 @@ export const FilterCars = () => {
 												aria-describedby='addon-wrapping'
 												min='0'
 												id='totalPassenger'
+												value={totalPassenger}
+												onChange={(e) => setTotalPassenger(e.target.value)}
 											/>
 											<span
 												className='input-group-text'
@@ -158,6 +237,7 @@ export const FilterCars = () => {
 										className='w-100 mx-end nav-link py-2 px-2 rounded success-color fw-bold text-center'
 										type='submit'
 										id='btnCariMobil'
+										onClick={() => carsFilter()}
 									>
 										Cari Mobil
 									</button>
@@ -167,7 +247,10 @@ export const FilterCars = () => {
 					</div>
 				</div>
 			</div>
-			<CarsContainer data={data} />
+			<CarsContainer
+				data={cars}
+				showContainer={showContainer}
+			/>
 		</>
 	);
 };
