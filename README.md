@@ -1,8 +1,41 @@
-# React + Vite
+<h1 align="center">
+  Chapter 6 - Challenge consume API with ReactJS
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# HOW TO EXPLORE?
 
-Currently, two official plugins are available:
+1. go to vscode terminal
+2. run the command: `npm install`
+3. run command: `npm run dev`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### 😎 happy hacking!
+
+# ENDPOINT
+
+| METHOD | End Point | Deskripsi       | params |
+| ------ | --------- | --------------- | ------ |
+| GET    | /         | Landing Page    |        |
+| GET    | /cars     | Search Car Page |        |
+|        |           |                 |        |
+
+# Data Diri
+
+|                  |                          |
+| ---------------- | ------------------------ |
+| ID Peserta       | **FSW2402KM6024**        |
+| Nama Peserta     | **Viery Nugroho**        |
+|                  |                          |
+| Kelas            | **FSW 1**                |
+|                  |                          |
+| ID Fasil         | **F-FSW24001086**        |
+| Nama Fasilitator | **Imam Taufiq Hermawan** |
+|                  |                          |
+
+# Fullstack Web Development
+
+### KM x Binar Academy Batch 6
+
+|                                                                            |
+| -------------------------------------------------------------------------- |
+| **Catatan**                                                                |
+| Submission Chapter 6 - React Front End - Car Management - Binar Car Rental |
